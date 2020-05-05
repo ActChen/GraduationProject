@@ -1,6 +1,6 @@
 package com.actchen.graduation.controller;
 
-import com.actchen.graduation.model.SubmitRequestBodyModel;
+import com.actchen.graduation.util.SubmitRequestBodyModel;
 import com.actchen.graduation.service.GetUnionIdService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
 
 /**
  * @author wentong chen

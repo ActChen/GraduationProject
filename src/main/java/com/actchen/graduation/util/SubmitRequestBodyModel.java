@@ -1,4 +1,6 @@
-package com.actchen.graduation.model;
+package com.actchen.graduation.util;
+
+import com.alibaba.fastjson.JSONArray;
 
 import java.util.List;
 
@@ -9,7 +11,11 @@ import java.util.List;
  */
 public class SubmitRequestBodyModel {
 
-    private List greadCount;   //问卷成绩
+    private String userId;     // 用户唯一性ID
+
+    private JSONArray question;   //问卷
+
+    private List<Integer> greadCount;   //问卷成绩
 
     private Integer tableNum;   //问卷号 每个问卷有不同结论
 
@@ -38,5 +44,21 @@ public class SubmitRequestBodyModel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public JSONArray getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(JSONArray question) {
+        this.question = question;
     }
 }
