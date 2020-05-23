@@ -3,6 +3,8 @@ package com.actchen.graduation.mapper;
 import com.actchen.graduation.model.ConclusionInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author wentong chen
  * @version 1.0
@@ -12,6 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ConclusionInfoMapper {
 
      public void insertConclusionInfo(ConclusionInfo conclusionInfo);
+
+     public List<ConclusionInfo> selectTestByUserId(String id);
 
 
 }
