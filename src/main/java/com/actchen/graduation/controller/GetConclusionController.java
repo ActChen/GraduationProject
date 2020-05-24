@@ -43,16 +43,21 @@ public class GetConclusionController {
         String userId = param.getUserId();
         JSONArray question = param.getQuestion();
 
+        String name = param.getName();
+        String phone = param.getPhone();
+
         System.out.println(greatCount);
         System.out.println(tableNum);
         System.out.println(userId);
         System.out.println(question);
+        System.out.println(name);
+        System.out.println(phone);
 
         //将评测记录存入数据库
         String result = conclusionService.getConclusion(greatCount, tableNum);
         //时间戳
         long time = new Date().getTime();
-        ConclusionInfo conclusionInfo = new ConclusionInfo(userId, question.toJSONString(), result, String.valueOf(time));
+        ConclusionInfo conclusionInfo = new ConclusionInfo(userId, question.toJSONString(), result, String.valueOf(time),name,phone);
 
         saveTestConclusionService.saveConclusion(conclusionInfo);
 

@@ -1,6 +1,7 @@
 package com.actchen.graduation.mapper;
 
 import com.actchen.graduation.model.ConclusionInfo;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface ConclusionInfoMapper {
      public void insertConclusionInfo(ConclusionInfo conclusionInfo);
 
      public List<ConclusionInfo> selectTestByUserId(String id);
+
+     public List<ConclusionInfo> selectTestByLimit(Integer height);
+
+     public ConclusionInfo selectQuestionByTimeAndUserId(String time, String userId);
 
 
 }

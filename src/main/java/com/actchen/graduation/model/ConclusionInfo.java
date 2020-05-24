@@ -16,11 +16,17 @@ public class ConclusionInfo {
 
     private String time;
 
-    public ConclusionInfo(String userId, String question, String conclusion, String time) {
+    private String name;
+
+    private String phone;
+
+    public ConclusionInfo(String userId, String question, String conclusion, String time, String name, String phone) {
         this.userId = userId;
         this.question = question;
         this.conclusion = conclusion;
         this.time = time;
+        this.name = name;
+        this.phone = phone;
     }
 
     public String getUserId() {
@@ -53,6 +59,22 @@ public class ConclusionInfo {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

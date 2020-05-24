@@ -6,12 +6,21 @@
         <result column="conclusion" jdbcType="VARCHAR" property="conclusion" />
         <result column="time" jdbcType="VARCHAR" property="time" />
     </resultMap>
+
 	<select id="selectTestByUserId" parameterType="java.lang.String" resultMap="result">
         select * from conclusionInfo where userId = #{id} order by time desc
     </select>
 
+    <select id="selectTestByLimit" parameterType="java.lang.Integer" resultMap="result">
+        select * from conclusionInfo limit 0,#{height}
+    </select>
+
 	<insert id="insertConclusionInfo" parameterType="com.actchen.graduation.model.ConclusionInfo" useGeneratedKeys="true">
-        insert into conclusionInfo(userId,question,conclusion,time) values (#{userId},#{question},#{conclusion},#{time})
+        insert into conclusionInfo(userId,question,conclusion,time,name,phone) values (#{userId},#{question},#{conclusion},#{time},#{name},#{phone})
     </insert>
+
+    <select id="selectQuestionByTimeAndUserId" parameterType="java.lang.String" resultMap="result">
+        select * from conclusionInfo where userId = #{userId} and time = #{time}
+    </select>
 
 </mapper>
