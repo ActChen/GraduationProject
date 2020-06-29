@@ -32,7 +32,6 @@ public class GetTestHistoryController {
         /**
          * 查看历史评测记录  返回为诊断结果和诊断时间
          */
-
         String userId = param.getUserId();
         System.out.println(userId);
         return selectTestHistoryService.selectHistoryByUserId(userId);

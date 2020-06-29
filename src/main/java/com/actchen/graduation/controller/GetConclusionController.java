@@ -1,6 +1,9 @@
 package com.actchen.graduation.controller;
 
-import com.actchen.graduation.model.ConclusionInfo;
+import com.actchen.graduation.model.Answer;
+import com.actchen.graduation.model.Conclusion;
+import com.actchen.graduation.model.ResultDto;
+import com.actchen.graduation.service.SaveAnswerService;
 import com.actchen.graduation.service.SaveTestConclusionService;
 import com.actchen.graduation.util.SubmitRequestBodyModel;
 import com.actchen.graduation.service.GetConclusionService;
@@ -34,6 +37,9 @@ public class GetConclusionController {
     @Autowired
     private SaveTestConclusionService saveTestConclusionService;
 
+    @Autowired
+    private SaveAnswerService saveAnswerService;
+
     @RequestMapping(value = "/conclusion", method = RequestMethod.POST)
     public String getUnionId(@RequestBody SubmitRequestBodyModel param) {
         //根据问卷得出结论
@@ -43,25 +49,25 @@ public class GetConclusionController {
         String userId = param.getUserId();
         JSONArray question = param.getQuestion();
 
-        String name = param.getName();
-        String phone = param.getPhone();
-
         System.out.println(greatCount);
         System.out.println(tableNum);
         System.out.println(userId);
         System.out.println(question);
-        System.out.println(name);
-        System.out.println(phone);
 
         //将评测记录存入数据库
-        String result = conclusionService.getConclusion(greatCount, tableNum);
+        ResultDto resultDto = conclusionService.getConclusion(greatCount, tableNum);
         //时间戳
         long time = new Date().getTime();
-        ConclusionInfo conclusionInfo = new ConclusionInfo(userId, question.toJSONString(), result, String.valueOf(time),name,phone);
+        Conclusion conclusionInfo = new Conclusion(userId,resultDto.getConclusion(),resultDto.getAdvise(),tableNum,String.valueOf(time));
 
+        //保存诊断结论
         saveTestConclusionService.saveConclusion(conclusionInfo);
 
-        return result;
+        //保存答卷信息
+        Answer answer = new Answer(userId, question.toJSONString() , String.valueOf(time));
+        saveAnswerService.saveAnswer(answer);
+
+        return resultDto.getConclusion();
     }
 
 }

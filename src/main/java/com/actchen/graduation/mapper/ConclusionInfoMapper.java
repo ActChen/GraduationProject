@@ -1,7 +1,9 @@
 package com.actchen.graduation.mapper;
 
-import com.actchen.graduation.model.ConclusionInfo;
-import com.alibaba.fastjson.JSONObject;
+import com.actchen.graduation.model.Answer;
+import com.actchen.graduation.model.Conclusion;
+import com.actchen.graduation.model.Questionnaire;
+import com.actchen.graduation.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,13 +16,26 @@ import java.util.List;
 @Mapper
 public interface ConclusionInfoMapper {
 
-     public void insertConclusionInfo(ConclusionInfo conclusionInfo);
+     public void insertConclusionInfo(Conclusion conclusionInfo);
 
-     public List<ConclusionInfo> selectTestByUserId(String id);
+     public List<Conclusion> selectTestByUserId(String id);
 
-     public List<ConclusionInfo> selectTestByLimit(Integer height);
+     public List<Conclusion> selectTestByLimit(Integer height);
 
-     public ConclusionInfo selectQuestionByTimeAndUserId(String time, String userId);
+     public Answer selectQuestionByTimeAndUserId(String userId, String time);
 
+     public void insertQuestion(Questionnaire data);
+
+     public List<Questionnaire> getQuestion();
+
+     public void saveUser(User user);
+
+     public void saveAnswer(Answer answer);
+
+     public List<User> selectUser(String userId);
+
+     public User selectUserById(String userId);
+
+     public User selectUserIdByKey(String key);
 
 }

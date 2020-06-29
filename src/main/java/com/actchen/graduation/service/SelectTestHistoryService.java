@@ -1,8 +1,7 @@
 package com.actchen.graduation.service;
 
 import com.actchen.graduation.mapper.ConclusionInfoMapper;
-import com.actchen.graduation.model.ConclusionInfo;
-import com.alibaba.fastjson.JSONArray;
+import com.actchen.graduation.model.Conclusion;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,16 +28,20 @@ public class SelectTestHistoryService {
          */
         List<JSONObject> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        List<ConclusionInfo> conclusionInfos = conclusionInfoMapper.selectTestByUserId(userId);
-        for (ConclusionInfo conclusionInfo : conclusionInfos){
+        List<Conclusion> conclusionInfos = conclusionInfoMapper.selectTestByUserId(userId);
+        for (Conclusion conclusionInfo : conclusionInfos){
 
             String time = conclusionInfo.getTime();
 
             String conclusion = conclusionInfo.getConclusion();
+            String advise = conclusionInfo.getAdvise();
             String date = sdf.format(new Date(Long.valueOf(time)));
+
+            JSONObject adviseJson = JSONObject.parseObject(advise);
 
             JSONObject con = new JSONObject();
             con.put("conclusion", conclusion);
+            con.put("advise", adviseJson);
             con.put("time", date);
 
             result.add(con);

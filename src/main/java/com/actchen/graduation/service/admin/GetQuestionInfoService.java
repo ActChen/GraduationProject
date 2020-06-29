@@ -1,7 +1,8 @@
 package com.actchen.graduation.service.admin;
 
 import com.actchen.graduation.mapper.ConclusionInfoMapper;
-import com.actchen.graduation.model.ConclusionInfo;
+import com.actchen.graduation.model.Answer;
+import com.actchen.graduation.model.Conclusion;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class GetQuestionInfoService {
 
     public JSONArray getQuestion(String userId, String time) {
 
-        ConclusionInfo conclusionInfo = conclusionInfoMapper.selectQuestionByTimeAndUserId(time, userId);
+        Answer answer = conclusionInfoMapper.selectQuestionByTimeAndUserId(userId, time);
 
-        String questionStr = conclusionInfo.getQuestion();
+        String questionStr = answer.getAnswerInfo();
         System.out.println(questionStr);
         JSONArray questionArr = JSONArray.parseArray(questionStr);
 
@@ -65,6 +66,5 @@ public class GetQuestionInfoService {
         }
         System.out.println(res);
         return res;
-
     }
 }

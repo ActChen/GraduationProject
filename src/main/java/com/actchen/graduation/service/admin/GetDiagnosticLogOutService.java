@@ -1,8 +1,8 @@
 package com.actchen.graduation.service.admin;
 
 import com.actchen.graduation.mapper.ConclusionInfoMapper;
-import com.actchen.graduation.model.ConclusionInfo;
-import com.alibaba.fastjson.JSONArray;
+import com.actchen.graduation.model.Conclusion;
+import com.actchen.graduation.model.User;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,35 +28,33 @@ public class GetDiagnosticLogOutService {
         List<JSONObject> result = new ArrayList<>();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        List<ConclusionInfo> conclusionInfos = conclusionInfoMapper.selectTestByLimit(100);
-        System.out.println(conclusionInfos);
+        List<Conclusion> conclusionInfos = conclusionInfoMapper.selectTestByLimit(100);
 
-        for (ConclusionInfo conclusionInfo : conclusionInfos) {
+        for (Conclusion conclusionInfo : conclusionInfos) {
 
             String time = conclusionInfo.getTime();
 
             String conclusion = conclusionInfo.getConclusion();
+            String advise = conclusionInfo.getAdvise();
             String date = sdf.format(new Date(Long.valueOf(time)));
 
             JSONObject con = new JSONObject();
 
-            String question = conclusionInfo.getQuestion();
-
-            JSONArray questionArray = JSONArray.parseArray(question);
-
-            String name = conclusionInfo.getName();
-
-            String phone = conclusionInfo.getPhone();
-
             String userId = conclusionInfo.getUserId();
 
-            System.out.println(questionArray);
+            /**
+             * 根据userId去查用户信息
+             */
+            User user = conclusionInfoMapper.selectUserById(userId);
+            if (user != null) {
+                con.put("name", user.getName());
+                con.put("phone", user.getPhone());
+            }
 
-            con.put("name", name);
-            con.put("phone", phone);
             con.put("userId", userId);
             con.put("timeStamp", time);
             con.put("conclusion", conclusion);
+            con.put("advise", JSONObject.parseObject(advise));
             con.put("time", date);
 
             result.add(con);

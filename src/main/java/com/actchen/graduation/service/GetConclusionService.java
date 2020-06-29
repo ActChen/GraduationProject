@@ -1,5 +1,6 @@
 package com.actchen.graduation.service;
 
+import com.actchen.graduation.model.ResultDto;
 import com.actchen.graduation.util.ConclusionText;
 import org.springframework.stereotype.Service;
 
@@ -19,52 +20,54 @@ public class GetConclusionService {
      * @param greatCount
      * @return
      */
-    public String getConclusion(List<Integer> greatCount, Integer tableNum) {
+    public ResultDto getConclusion(List<Integer> greatCount, Integer tableNum) {
         int all = 0;
+        //对此问卷每题得分进行求和
         for (int i = 0; i < greatCount.size(); i++) {
             all += greatCount.get(i);
         }
+        //根据问卷编号tableNum和分值总和all得出相应结论
         switch (tableNum) {
             case 1:
                 if (all <= 4) {
-                    return ConclusionText.getConclusion(2);
+                    return new ResultDto(ConclusionText.getConclusion(2), ConclusionText.getAdvise(2));
                 } else if (all >= 5 && all <= 9) {
-                    return ConclusionText.getConclusion(1);
+                    return new ResultDto(ConclusionText.getConclusion(1), ConclusionText.getAdvise(1));
                 } else {
-                    return ConclusionText.getConclusion(0);
+                    return new ResultDto(ConclusionText.getConclusion(0), ConclusionText.getAdvise(0));
                 }
             case 2:
                 return getTableTwoConclusion(greatCount);
             case 3:
                 if (all <= 5) {
-                    return ConclusionText.getConclusion(6);
+                    return new ResultDto(ConclusionText.getConclusion(6), ConclusionText.getAdvise(6));
                 } else if (all >= 6 && all <= 10) {
-                    return ConclusionText.getConclusion(7);
+                    return new ResultDto(ConclusionText.getConclusion(7), ConclusionText.getAdvise(7));
                 } else {
-                    return ConclusionText.getConclusion(8);
+                    return new ResultDto(ConclusionText.getConclusion(8), ConclusionText.getAdvise(8));
                 }
             case 4:
                 if (all == 1) {
-                    return ConclusionText.getConclusion(12);
+                    return new ResultDto(ConclusionText.getConclusion(12), ConclusionText.getAdvise(12));
                 } else if (all == 2) {
-                    return ConclusionText.getConclusion(13);
+                    return new ResultDto(ConclusionText.getConclusion(13), ConclusionText.getAdvise(13));
                 } else {
-                    return ConclusionText.getConclusion(14);
+                    return new ResultDto(ConclusionText.getConclusion(14), ConclusionText.getAdvise(14));
                 }
             case 5:
                 if (all <= 6) {
-                    return ConclusionText.getConclusion(9);
+                    return new ResultDto(ConclusionText.getConclusion(9), ConclusionText.getAdvise(9));
                 } else if (all >= 7 && all <= 11) {
-                    return ConclusionText.getConclusion(10);
+                    return new ResultDto(ConclusionText.getConclusion(10), ConclusionText.getAdvise(10));
                 } else {
-                    return ConclusionText.getConclusion(11);
+                    return new ResultDto(ConclusionText.getConclusion(11), ConclusionText.getAdvise(11));
                 }
             default:
-                return "";
+                return new ResultDto("无", "无");
         }
     }
 
-    private String getTableTwoConclusion(List<Integer> greatCount) {
+    private ResultDto getTableTwoConclusion(List<Integer> greatCount) {
         /**
          * 1～6中有选择是的，则为急迫性尿失禁
          * 7～15中有选择是的，则为压力性尿诗经
@@ -83,13 +86,13 @@ public class GetConclusionService {
         }
 
         if (tag1_6 && !tag7_15) {
-            return ConclusionText.getConclusion(3);
+            return new ResultDto(ConclusionText.getConclusion(3), ConclusionText.getAdvise(3));
         } else if (!tag1_6 && tag7_15) {
-            return ConclusionText.getConclusion(4);
+            return new ResultDto(ConclusionText.getConclusion(4), ConclusionText.getAdvise(4));
         } else if (tag1_6 && tag7_15) {
-            return ConclusionText.getConclusion(5);
+            return new ResultDto(ConclusionText.getConclusion(5), ConclusionText.getAdvise(5));
         } else {
-            return "正常，无尿失禁问题";
+            return new ResultDto("无尿失禁问题","身体健康");
         }
     }
 

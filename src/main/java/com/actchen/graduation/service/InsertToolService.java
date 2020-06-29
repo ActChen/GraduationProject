@@ -1,25 +1,24 @@
 package com.actchen.graduation.service;
 
 import com.actchen.graduation.mapper.ConclusionInfoMapper;
-import com.actchen.graduation.model.Conclusion;
+import com.actchen.graduation.model.Questionnaire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author wentong chen
  * @version 1.0
- * @date 2020/4/30 1:53 下午
+ * @date 2020/5/27 3:04 下午
  */
 @Service
-public class SaveTestConclusionService {
-    /**
-     * 评测记录存入mysql数据库
-     */
+public class InsertToolService {
 
     @Autowired
     private ConclusionInfoMapper conclusionInfoMapper;
 
-    public void saveConclusion(Conclusion conclusionInfo){
-        conclusionInfoMapper.insertConclusionInfo(conclusionInfo);
+    public void insert(Questionnaire data){
+
+        conclusionInfoMapper.insertQuestion(data);
     }
+
 }
